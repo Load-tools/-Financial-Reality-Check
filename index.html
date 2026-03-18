@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Financial Reality Check</title>
+
+<meta name="description" content="Analyze your finances and see how long it will take to escape debt.">
+
+<style>
+body {
+  font-family: Arial;
+  background: linear-gradient(135deg, #141e30, #243b55);
+  color: white;
+  text-align: center;
+  padding: 30px;
+}
+
+.container {
+  background: rgba(0,0,0,0.6);
+  padding: 25px;
+  border-radius: 15px;
+  max-width: 520px;
+  margin: auto;
+}
+
+h2 {
+  margin-bottom: 5px;
+}
+
+input {
+  width: 90%;
+  padding: 12px;
+  margin: 6px;
+  border-radius: 10px;
+  border: none;
+}
+
+button {
+  padding: 12px 20px;
+  background: #00c6ff;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.results {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.card {
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.red { background: #ff4d4d; }
+.yellow { background: #ffd166; color: black; }
+.green { background: #06d6a0; color: black; }
+
+.cta-btn {
+  display: block;
+  margin-top: 15px;
+  padding: 12px;
+  background: #00ff99;
+  color: black;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>💣 Financial Reality Check</h2>
+<p>Understand your money, debt and future in seconds</p>
+
+<a class="cta-btn" href="https://go.hotmart.com/F104956395V?ap=6840" target="_blank">
+🚀 Improve Your Finances Now
+</a>
+
+<input type="number" id="income" placeholder="Monthly income ($)">
+<input type="number" id="expenses" placeholder="Monthly expenses ($)">
+<input type="number" id="debt" placeholder="Total debt ($)">
+<input type="number" id="savings" placeholder="Savings ($)">
+<input type="number" id="payment" placeholder="Monthly debt payment ($)">
+
+<button onclick="analyze()">Analyze My Situation</button>
+
+<div class="results" id="results"></div>
+
+</div>
+
+<script>
+function analyze() {
+  let income = Number(document.getElementById("income").value);
+  let expenses = Number(document.getElementById("expenses").value);
+  let debt = Number(document.getElementById("debt").value);
+  let savings = Number(document.getElementById("savings").value);
+  let payment = Number(document.getElementById("payment").value);
+
+  let balance = income - expenses;
+
+  let monthsToEscape = balance > 0 ? (debt / balance).toFixed(1) : "∞";
+  let survivalMonths = expenses > 0 ? (savings / expenses).toFixed(1) : 0;
+
+  let payoffMonths = payment > 0 ? (debt / payment).toFixed(1) : "∞";
+  let payoffYears = payment > 0 ? (payoffMonths / 12).toFixed(1) : "∞";
+
+  let balanceCard = "";
+  if (balance < 0) {
+    balanceCard = `<div class="card red">⚠️ You're losing $${Math.abs(balance)} every month</div>`;
+  } else {
+    balanceCard = `<div class="card green">✅ You save $${balance} per month</div>`;
+  }
+
+  let debtCard = `<div class="card yellow">
+  ⛓️ Debt freedom time: <b>${monthsToEscape}</b> months<br>
+  🏦 Paying $${payment}/month → <b>${payoffYears}</b> years
+  </div>`;
+
+  let survivalCard = `<div class="card yellow">
+  🛟 If you stop earning today, you can survive <b>${survivalMonths}</b> months
+  </div>`;
+
+  let emotionalCard = "";
+  if (payoffYears > 5) {
+    emotionalCard = `<div class="card red">😨 At this rate, debt will control your life for years.</div>`;
+  } else if (payoffYears > 2) {
+    emotionalCard = `<div class="card yellow">⚠️ You're not in danger, but this will take time.</div>`;
+  } else {
+    emotionalCard = `<div class="card green">🔥 You're on a good path. Stay consistent.</div>`;
+  }
+
+  let cta = `<a class="cta-btn" href="https://go.hotmart.com/F104956395V?ap=6840" target="_blank">
+  👉 Learn How To Get Out of Debt Faster
+  </a>`;
+
+  document.getElementById("results").innerHTML =
+    balanceCard +
+    debtCard +
+    survivalCard +
+    emotionalCard +
+    cta;
+}
+</script>
+
+</body>
+</html>
